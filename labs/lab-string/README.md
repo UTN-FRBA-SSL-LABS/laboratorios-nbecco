@@ -562,7 +562,7 @@ foo
 
 **P9** — ¿Por qué `(void)argc` suprime un warning? ¿Cuándo sería necesario usar `argc`?
 
-> R:
+> R:Con -Wextra, gcc avisa cuando un parámetro no se usa (-Wunused-parameter). Castear a void cuenta como "uso" y deja explícito que se ignora a propósito. argc hace falta cuando necesitás saber la cantidad de argumentos de antemano, por ejemplo para validar que haya al menos uno (if (argc < 2) en mayorlongitud), para acceder a una posición directa como argv[argc - 1] o para recorrer al revés
 
 ---
 
@@ -589,7 +589,7 @@ Salida esperada:
 ```
 
 ```
-LONGITUDES_PASA=
+LONGITUDES_PASA=SI
 ```
 _(SI o NO)_
 
