@@ -367,7 +367,7 @@ El `while` termina cuando alguna de las dos cadenas llega a `'\0'`. Después dev
 
 **P4** — ¿Qué dos casos están mal cubiertos por `return 1`? Describí un ejemplo para cada uno.
 
-> R:
+> R:El while corta cuando cualquiera de las dos cadenas termina, y return 1 no revisa si terminaron las dos. Quedan mal dos casos: (1) s1 es prefijo de s2, por ejemplo AreEqual("ab", "abc") devuelve 1; (2) s2 es prefijo de s1, por ejemplo AreEqual("abc", "ab") devuelve 1. Las dos cadenas son iguales solo si terminan juntas
 
 #### Corrección
 
@@ -384,7 +384,7 @@ make test
 ```
 
 ```
-AREEQUAL_PASA=
+AREEQUAL_PASA=SI
 ```
 _(escribí SI cuando todos los tests de AreEqual pasen)_
 
