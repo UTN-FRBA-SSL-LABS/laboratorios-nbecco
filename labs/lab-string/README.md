@@ -277,7 +277,7 @@ Los tests de `IsEmpty` ya están activos en `StringTest.c`. Corré `make test` y
 
 **P1** — `IsEmpty` podría haberse escrito también como `return s[0] == '\0'`. ¿Son equivalentes? ¿Por qué?
 
-> R:
+> R:Sí, son equivalentes. Por definición s[0] es *(s + 0), que es *s. Las dos acceden al primer caracter y lo comparan con '\0'
 
 ---
 
@@ -328,14 +328,14 @@ make test
 
 **P2** — ¿Qué hace `s + 1`? ¿Por qué avanza al siguiente carácter y no al siguiente byte?
 
-> R:
+> R:Es aritmetica de punteros: s + 1 apunta al elemento siguiente, o sea que avanza sizeof(*s) bytes. Como s es char * y el estandar garantiza que sizeof(char) == 1, en este caso "un caracter" y "un byte" son lo mismo. Con un int *, p + 1 avanzaria sizeof(int) bytes (tipicamente 4).
 
 **P3** — Si llamaras a `GetLength(NULL)`, ¿qué pasaría? ¿Por qué las precondiciones del contrato dicen `s != NULL`?
 
-> R:
+> R:IsEmpty(NULL) desreferencia un puntero nulo. Eso es comportamiento indefinido y en la práctica suele dar segmentation fault. La precondición s != NULL deja del lado del llamador la responsabilidad de pasar un string válido. Así la función no paga el costo de chequear en cada llamada, y queda claro que NULL ("no hay string") no es lo mismo que "" (string vacío)
 
 ```
-GETLENGTH_PASA=
+GETLENGTH_PASA=SI
 ```
 _(escribí SI cuando todos los tests de GetLength pasen)_
 
