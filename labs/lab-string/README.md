@@ -414,7 +414,7 @@ int AreDecimalDigits(const char *s) {
 
 **P5** — ¿Por qué la cadena vacía no debería considerarse un conjunto de dígitos decimales? Pensalo desde la especificación matemática.
 
-> R:
+> R:La especificacion define AreDecimalDigits(ε) = 0 como caso base y pide al menos un caracter. La cadena vacia no representa ningun numero. Si devolviera 1, "" pasaria como numerica y, por ejemplo, ToInteger("") daría 0 sin que nadie se entere, un resultado engañoso. "Todos sus caracteres son digitos" es verdadero en sentido vacuo para ε, pero la funcion pregunta si la cadena es un numero, y ε no lo es
 
 #### Corrección
 
@@ -425,7 +425,7 @@ make test
 ```
 
 ```
-AREDECIMALDIGITS_PASA=
+AREDECIMALDIGITS_PASA=SI
 ```
 _(escribí SI cuando todos los tests de AreDecimalDigits pasen)_
 
