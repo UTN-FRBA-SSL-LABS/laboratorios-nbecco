@@ -38,9 +38,13 @@ int main(void) {
     assert(AreDecimalDigits("") == 0);
 
     /* ── Contains — descomentar cuando implementes la funcion ───────────── */
-    /* assert(Contains("hola", 'o') == 1); */
-    /* assert(Contains("hola", 'z') == 0); */
-    /* assert(Contains("", 'a') == 0); */
+    assert(Contains("hola", 'o') == 1);
+    assert(Contains("hola", 'z') == 0);
+    assert(Contains("", 'a') == 0);
+    assert(Contains("hola", 'h') == 1);   /* borde: primer carácter */
+    assert(Contains("hola", 'a') == 1);   /* borde: último carácter */
+    assert(Contains("a", 'a') == 1);      /* borde: cadena de 1 char */
+    assert(Contains("hola", 'H') == 0);   /* distingue mayúsculas */
 
     return 0;
 }
