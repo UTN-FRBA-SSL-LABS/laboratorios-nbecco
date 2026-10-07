@@ -467,7 +467,7 @@ Antes de implementar, discutí con tu equipo:
 
 **P6** — Conclusión de la discusión:
 
-> R:
+> R:Es correcto tenerla en un módulo aparte. ToInteger recibe un String pero devuelve un Integer, así que cruza la frontera entre tipos. Si la metemos en String se pierde cohesión, porque la biblioteca dejaría de ser solo de operaciones sobre strings. Separada, la dependencia queda en un solo sentido (Conversion → String) y cada módulo tiene una sola responsabilidad
 
 ---
 
@@ -494,7 +494,7 @@ int ToInteger(const char *s) {
 
 **P7** — El loop acumula correctamente el valor en `resultado`. ¿Qué está mal en el `return`?
 
-> R:
+> R:Devuelve solo signo, que vale 1 o -1, y descarta el valor acumulado en resultado. Por eso ToInteger("42") devuelve 1. Tiene que devolver signo * resultado
 
 #### Corrección
 
@@ -506,10 +506,10 @@ make test
 
 **P8** — La expresión `*s - '0'` convierte un carácter dígito al entero correspondiente. ¿Por qué funciona? ¿Qué devuelve `'3' - '0'`?
 
-> R:
+> R:El estándar de C garantiza que los caracteres '0'…'9' tienen códigos consecutivos y crecientes (vale para cualquier juego de caracteres, no solo ASCII). Restar '0' da entonces la distancia al cero, que es el valor del dígito. En ASCII: '3' - '0' = 51 - 48 = 3
 
 ```
-TOINTEGER_PASA=
+TOINTEGER_PASA=SI
 ```
 _(escribí SI cuando todos los tests de ToInteger pasen)_
 
