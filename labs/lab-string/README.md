@@ -662,15 +662,15 @@ _(SI o NO)_
 
 **P10** — `GetLength` es recursiva pero en C una llamada recursiva consume un stack frame. Si llamaras `GetLength` con un string de 1.000.000 de caracteres, ¿qué pasaría? ¿Cómo lo resolverías?
 
-> R:
+> R:Cada llamada recursiva apila un stack frame, así que con 1.000.000 de caracteres hay ~1.000.000 de frames. Eso supera el tamaño típico del stack (alrededor de 8 MB en Linux y 1 MB en Windows) y produce un stack overflow, que en la práctica es un segfault. Hay dos soluciones: (1) la versión iterativa (for (; !IsEmpty(s); s++) n++;), que usa memoria constante; (2) una versión con recursión de cola y acumulador, que el compilador puede convertir en un loop con optimización (-O2), aunque el estándar de C no lo garantiza. Lo seguro es la iterativa.
 
 **P11** — En la Parte III, todos los programas usan `char **arg` para iterar en vez de un índice entero. ¿Qué ventaja tiene este estilo? ¿Cuándo sería preferible usar el índice?
 
-> R:
+> R:Con el puntero no hace falta una variable índice, se usa directamente el centinela argv[argc] == NULL (igual que el '\0' de los strings) y *arg es directamente el string actual. Es el mismo patrón que se usa para recorrer cadenas. El índice conviene cuando importa la posición: numerar argumentos, acceder a un elemento por su posición, recorrer de atrás para adelante o comparar argv[i] con argv[i+1]
 
 **P12** — En C, `"hola"` es un literal de tipo `const char *`. Si intentaras modificar un carácter con `s[0] = 'H'`, el comportamiento es indefinido. ¿Por qué? ¿En qué parte de la memoria viven los literales?
 
-> R:
+> R:Los literales viven en memoria estática, en un segmento de solo lectura (.rodata) que el sistema operativo marca como no escribible. Además, el compilador puede hacer que literales idénticos compartan la misma dirección. Escribir ahí es comportamiento indefinido según el estándar, y en la práctica suele dar segfault. Ojo: en C el tipo de "hola" es estrictamente char[5], no const char * (en C++ sí es const). Por eso char *s = "hola" compila sin error, pero modificarlo sigue siendo UB
 
 ---
 
@@ -678,11 +678,11 @@ _(SI o NO)_
 
 ### Checklist
 
-- [ ] `String.c` con todas las funciones implementadas y tests pasando
-- [ ] `Conversion.c` con `ToInteger` corregida y tests pasando
-- [ ] Los 5 programas funcionando (`make all`)
-- [ ] `make test` pasa localmente
-- [ ] Todo pusheado a `main`
+- [x] `String.c` con todas las funciones implementadas y tests pasando
+- [x] `Conversion.c` con `ToInteger` corregida y tests pasando
+- [x] Los 5 programas funcionando (`make all`)
+- [x] `make test` pasa localmente
+- [x] Todo pusheado a `main`
 
 ### Verificación local
 
